@@ -1,0 +1,53 @@
+{
+  "name": "vue-videoplayer-subtitles",
+  "version": "1.0.0",
+  "dependencies": {
+    "cssom": {
+      "version": "0.2.5",
+      "from": "cssom@>=0.2.0 <0.3.0",
+      "resolved": "https://registry.npmjs.org/cssom/-/cssom-0.2.5.tgz"
+    },
+    "debug": {
+      "version": "2.6.9",
+      "from": "debug@>=2.6.8 <3.0.0",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz"
+    },
+    "foundation": {
+      "version": "4.2.1-1",
+      "from": "foundation@latest",
+      "resolved": "https://registry.npmjs.org/foundation/-/foundation-4.2.1-1.tgz"
+    },
+    "ms": {
+      "version": "2.0.0",
+      "from": "ms@2.0.0",
+      "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
+    },
+    "stylus": {
+      "version": "0.32.1",
+      "from": "stylus@>=0.32.1 <0.33.0",
+      "resolved": "https://registry.npmjs.org/stylus/-/stylus-0.32.1.tgz",
+      "dependencies": {
+        "mkdirp": {
+          "version": "0.3.5",
+          "from": "mkdirp@>=0.3.0 <0.4.0",
+          "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
+        }
+      }
+    },
+    "stylus-type-utils": {
+      "version": "0.0.3",
+      "from": "stylus-type-utils@>=0.0.3 <0.1.0",
+      "resolved": "https://registry.npmjs.org/stylus-type-utils/-/stylus-type-utils-0.0.3.tgz"
+    },
+    "vue": {
+      "version": "2.5.2",
+      "from": "vue@>=2.5.2 <3.0.0",
+      "resolved": "https://registry.npmjs.org/vue/-/vue-2.5.2.tgz"
+    },
+    "vue-router": {
+      "version": "3.0.1",
+      "from": "vue-router@>=3.0.1 <4.0.0",
+      "resolved": "https://registry.npmjs.org/vue-router/-/vue-router-3.0.1.tgz"
+    }
+  }
+}
