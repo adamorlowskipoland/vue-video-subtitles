@@ -1,23 +1,28 @@
 const lines = [
   {
-    min: 0,
-    max: 1,
-    text: "Linia nr 1"
+    min: 9,
+    max: 11,
+    text: "The Blender Foundation presents"
   },
   {
-    min: 5,
-    max: 6,
-    text: "Llinia nr 2"
-  },
-  {
-    min: 8,
-    max: 9,
-    text: "Llinia nr 3"
-  },
-  {
-    min: 11,
+    min: 12,
     max: 14,
-    text: "Llinia nr 4"
+    text: "What brings you to the land of GateKeepers"
+  },
+  {
+    min: 18,
+    max: 20,
+    text: "I'm searching for someone"
+  },
+  {
+    min: 36,
+    max: 39,
+    text: "Dengerous quest for a lonely hunter"
+  },
+  {
+    min: 40,
+    max: 44,
+    text: "I've been alone for as long as I can remember"
   }
 ];
 
@@ -29,7 +34,8 @@ let currentTime
 let currentData = {}
 
 function setCurrentTime() {
-  currentTime = Math.floor(video.currentTime)
+  currentTime = video.currentTime.toFixed(3)
+  console.log(currentTime)
   displayLine()
 }
 
