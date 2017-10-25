@@ -1,6 +1,7 @@
 @import '../node_modules/foundation-sites/scss/util/util';
 @import '../node_modules/foundation-sites/scss/global';
 @import '../node_modules/normalize-scss/sass/normalize';
+@import 'assets/scss/typography';
 
 $global-width: rem-calc(1200);
 $grid-column-count: 12;
