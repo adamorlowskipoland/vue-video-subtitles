@@ -28,9 +28,6 @@ const video = document.getElementById('video')
 let currentTime
 let currentData = {}
 
-// jeżeli current time jest inbetween current data return
-// jeżeli nie jest ustaw nowe currentdata
-
 function setCurrentTime() {
   currentTime = Math.floor(video.currentTime)
   displayLine()
@@ -38,9 +35,7 @@ function setCurrentTime() {
 
 function displayLine() {
   if (currentData) {
-    if (inBetween(currentTime, currentData)) {
-      return
-    } else {
+    if (!inBetween(currentTime, currentData)) {
       setCurrentData()
     }
   } else {
