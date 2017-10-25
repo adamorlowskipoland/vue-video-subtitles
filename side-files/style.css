@@ -1,0 +1,19 @@
+.video-wrapper {
+    position: relative;
+    width: 60%;
+    margin: 30px auto;
+}
+
+.video-wrapper__video {
+    position: relative;
+}
+
+.video-wrapper__text {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    color: #fff;
+    z-index: 2147483647;
+}
