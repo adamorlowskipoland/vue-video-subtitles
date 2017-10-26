@@ -1,21 +1,18 @@
 <template>
-  <div class="video-payer">
-    <div class="row align-middle">
-      <div class="columns small-12 medium-10 medium-offset-1 large-8 large-offset-2">
-        <div>
-          <video @timeupdate="showCurrentTime"
+  <div class="video-player">
+    <div class="row text-center">
+      <div class="columns small-12">
+        <div class="video-player__wrapper">
+          <video @timeupdate="setCurrentData"
                  ref="video"
                  class="video-player__video"
-                 src="http://r.dcs.redcdn.pl/http/o2/atendesoftware/portal/video/atendesoftware/atendesoftware2.mp4"
-                 type="video/mp4"
                  controls>
+            <source src="http://r.dcs.redcdn.pl/http/o2/atendesoftware/portal/video/atendesoftware/atendesoftware2.mp4"
+                    type="video/mp4"/>
           </video>
-          <p class="text-center">
-            {{ msg }}
-          </p>
-          <pre>
-            {{ Subtitles }}
-          </pre>
+          <span class="text-center video-player__text">
+                {{ currentText }}
+          </span>
         </div>
       </div>
     </div>
@@ -23,26 +20,44 @@
 </template>
 
 <script>
-  import Subtitles from '@/data/sub-test.json';
+  import Subtitles from '@/data/subtitles.json';
 
   export default {
     name: 'VideoPlayer',
     data() {
       return {
-        msg: 'This is Video Player component',
         Subtitles,
-        video: null,
         currentTime: null,
+        currentData: {},
+        currentText: '',
       };
     },
-    ready() {
-      this.video = this.$refs.video;
-    },
     methods: {
-      showCurrentTime() {
-        this.currentTime = event.target.currentTime;
-        console.log(event.target.currentTime);
-        console.log(this.Subtitles[0].start);
+      setCurrentData() {
+        this.currentTime = event.target.currentTime.toFixed(3);
+        if (this.currentData) {
+          if (!this.inBetween(this.currentTime, this.currentData)) {
+            this.currentData = this.findCurrentData();
+            this.displayLine();
+          }
+        } else {
+          this.currentData = this.findCurrentData();
+          this.displayLine();
+        }
+      },
+      findCurrentData() {
+        return Subtitles.find((line) => {
+          if (this.inBetween(this.currentTime, line)) {
+            return line;
+          }
+          return false;
+        });
+      },
+      inBetween(x, { start, end }) {
+        return x >= start && x <= end;
+      },
+      displayLine() {
+        this.currentText = this.currentData ? this.currentData.text : '';
       },
     },
   };
