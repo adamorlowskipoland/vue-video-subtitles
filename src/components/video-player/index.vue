@@ -20,17 +20,24 @@
 </template>
 
 <script>
-  import Subtitles from '@/data/subtitles.json';
-
+  //  import Subtitles from '@/data/sub-test.json';
   export default {
     name: 'VideoPlayer',
     data() {
       return {
-        Subtitles,
+        subtitles: [],
         currentTime: null,
         currentData: {},
         currentText: '',
       };
+    },
+    created() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://n-5-8.dcs.redcdn.pl/file/o2/atendesoftware/portal/video/atendesoftware/atendesoftware_2a.txt');
+      xhr.onload = function () {
+        this.subtitles = this.responseText;
+      };
+      xhr.send();
     },
     methods: {
       setCurrentData() {
@@ -46,7 +53,7 @@
         }
       },
       findCurrentData() {
-        return Subtitles.find((line) => {
+        return this.subtitles.find((line) => {
           if (this.inBetween(this.currentTime, line)) {
             return line;
           }
@@ -57,7 +64,7 @@
         return x >= start && x <= end;
       },
       displayLine() {
-        this.currentText = this.currentData ? this.currentData.text : '';
+//        this.currentText = this.currentData ? this.currentData.text : '';
       },
     },
   };
