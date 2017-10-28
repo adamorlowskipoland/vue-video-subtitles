@@ -7,22 +7,30 @@
                  ref="video"
                  class="video-player__video"
                  controls>
-            <source src="http://r.dcs.redcdn.pl/http/o2/atendesoftware/portal/video/atendesoftware/atendesoftware2.mp4"
+            <source :src="video.src"
                     type="video/mp4"/>
           </video>
           <span class="text-center video-player__text">
                 {{ currentText }}
           </span>
         </div>
+        <pre>
+          {{ subtitles }}
+        </pre>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  //  import Subtitles from '@/data/sub-test.json';
   export default {
     name: 'VideoPlayer',
+    props: {
+      video: {
+        src: String,
+        subs: String,
+      },
+    },
     data() {
       return {
         subtitles: [],
@@ -32,11 +40,14 @@
       };
     },
     created() {
+      const response = [];
       const xhr = new XMLHttpRequest();
-      xhr.open('GET', 'http://n-5-8.dcs.redcdn.pl/file/o2/atendesoftware/portal/video/atendesoftware/atendesoftware_2a.txt');
+      xhr.open('GET', this.video.subs);
       xhr.onload = function () {
-        this.subtitles = this.responseText;
+        response.push(this.responseText);
+        console.log(response);
       };
+      this.subtitles = response;
       xhr.send();
     },
     methods: {
@@ -64,7 +75,7 @@
         return x >= start && x <= end;
       },
       displayLine() {
-//        this.currentText = this.currentData ? this.currentData.text : '';
+        this.currentText = this.currentData ? this.currentData.text : '';
       },
     },
   };
