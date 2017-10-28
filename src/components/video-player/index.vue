@@ -14,7 +14,7 @@
                 {{ currentText }}
           </span>
         </div>
-        <pre>
+        <pre class="pre">
           {{ subtitles }}
         </pre>
       </div>
@@ -40,18 +40,26 @@
       };
     },
     created() {
-      this.$http.post(this.video.subs, this.subtitles)
+      this.$http.post(this.video.subs)
         .then((data) => {
-          console.log(data);
-          this.subtitles.push(data.bodyText);
+          this.splitSubtitles(data.bodyText);
         });
     },
-    mounted() {
-      console.log(this.subtitles[0]);
-    },
     methods: {
+      splitSubtitles(subtitles) {
+        this.subtitles = subtitles;
+        this.subtitles = subtitles.split('\n');
+        const subtitlesLastElem = this.subtitles[this.subtitles.length - 1];
+        if (!this.lastElemNotEmpty[subtitlesLastElem]) {
+          this.subtitles.pop();
+        }
+        this.subtitles = this.subtitles.map(line => line.split(' '));
+        console.log(this.subtitles);
+      },
+      lastElemNotEmpty(lastElem) {
+        return lastElem.length ? 1 : 0;
+      },
       setCurrentData() {
-        console.log(this.subtitles[0]);
         this.currentTime = event.target.currentTime.toFixed(3);
         if (this.currentData) {
           if (!this.inBetween(this.currentTime, this.currentData)) {
