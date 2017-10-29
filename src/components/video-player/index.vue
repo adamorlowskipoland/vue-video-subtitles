@@ -49,12 +49,23 @@
       splitSubtitles(subtitles) {
         this.subtitles = subtitles.split('\n');
         this.deleteSubtitlesLastElemIfEmpty();
-        this.subtitles = this.subtitles.map(line => line.split(/.\d{3}\s/));
+        this.separateTimesFromTextInSubtitles();
+        this.setSubtitlesIntoObjects();
         console.log(this.subtitles);
+//        let start = this.subtitles[0]['0'].split(':').join('');
+//        start = Number(start);
+//        console.log(start === this.subtitles[0]['0'].split(':').join(''));
       },
       deleteSubtitlesLastElemIfEmpty() {
         const subtitlesLastElem = this.subtitles[this.subtitles.length - 1];
         return subtitlesLastElem.length < 1 ? this.subtitles.pop() : false;
+      },
+      separateTimesFromTextInSubtitles() {
+        this.subtitles = this.subtitles.map(line => line.split(/\.\d{3}\s/));
+      },
+      setSubtitlesIntoObjects() {
+        // eslint-disable-next-line
+        this.subtitles = this.subtitles.map(subtitle => Object.assign({ start: subtitle[0], end: subtitle[1], text: subtitle[2] }));
       },
       setCurrentData() {
         this.currentTime = event.target.currentTime.toFixed(3);
@@ -77,6 +88,7 @@
         });
       },
       inBetween(x, { start, end }) {
+        console.log(`X: ${x}, START: ${start}, STOP: ${end}`);
         return x >= start && x <= end;
       },
       displayLine() {
