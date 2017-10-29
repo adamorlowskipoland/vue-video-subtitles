@@ -65,7 +65,11 @@
       },
       setSubtitlesIntoObjects() {
         // eslint-disable-next-line
-        this.subtitles = this.subtitles.map(subtitle => Object.assign({ start: subtitle[0], end: subtitle[1], text: subtitle[2] }));
+        this.subtitles = this.subtitles.map(subtitle => Object.assign({
+          start: this.convertTimeToSeconds(subtitle[0]),
+          end: this.convertTimeToSeconds(subtitle[1]),
+          text: subtitle[2],
+        }));
       },
       setCurrentData() {
         this.currentTime = event.target.currentTime.toFixed(3);
@@ -93,6 +97,15 @@
       },
       displayLine() {
         this.currentText = this.currentData ? this.currentData.text : '';
+      },
+      convertTimeToSeconds(timeString) {
+        console.log(timeString);
+        const splitedTime = timeString.split(':');
+        console.log(splitedTime);
+        // eslint-disable-next-line
+        console.log((Number(splitedTime[0]) * 360) + (Number(splitedTime[1]) * 60) + Number(splitedTime[2]));
+        // eslint-disable-next-line
+        return (Number(splitedTime[0]) * 360) + (Number(splitedTime[1]) * 60) + Number(splitedTime[2]);
       },
     },
   };
