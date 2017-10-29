@@ -47,17 +47,14 @@
     },
     methods: {
       splitSubtitles(subtitles) {
-        this.subtitles = subtitles;
         this.subtitles = subtitles.split('\n');
-        const subtitlesLastElem = this.subtitles[this.subtitles.length - 1];
-        if (!this.lastElemNotEmpty[subtitlesLastElem]) {
-          this.subtitles.pop();
-        }
-        this.subtitles = this.subtitles.map(line => line.split(' '));
+        this.deleteSubtitlesLastElemIfEmpty();
+        this.subtitles = this.subtitles.map(line => line.split(/.\d{3}\s/));
         console.log(this.subtitles);
       },
-      lastElemNotEmpty(lastElem) {
-        return lastElem.length ? 1 : 0;
+      deleteSubtitlesLastElemIfEmpty() {
+        const subtitlesLastElem = this.subtitles[this.subtitles.length - 1];
+        return subtitlesLastElem.length < 1 ? this.subtitles.pop() : false;
       },
       setCurrentData() {
         this.currentTime = event.target.currentTime.toFixed(3);
