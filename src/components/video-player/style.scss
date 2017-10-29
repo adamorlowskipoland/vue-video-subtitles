@@ -1,3 +1,5 @@
+@import '../../../node_modules/foundation-sites/scss/util/util';
+
 .video-player {
   display: flex;
   position: relative;
@@ -11,18 +13,40 @@
   }
   &__text {
     position: absolute;
-    bottom: 12%;
+    bottom: 15%;
     left: 50%;
+    -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
-    width: 80%;
-    font-size: 22px;
+    font-size: 140%; /* fallback for 2vh */
+    font-size: 2vh;
     font-weight: 700;
     color: #fff;
     z-index: 2147483647;
-    background-color: rgba(0, 0, 0, .75);
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 0 7px;
+    @include breakpoint(large) {
+
+    }
   }
   .pre {
     color: #fff;
     text-align: left;
+  }
+  &:-moz-full-screen {
+    &__text {
+      font-size: 4vh;
+    }
+  }
+
+  &:-webkit-full-screen {
+    &__text {
+      font-size: 4vh;
+    }
+  }
+
+  &:fullscreen {
+    &__text {
+      font-size: 4vh;
+    }
   }
 }
