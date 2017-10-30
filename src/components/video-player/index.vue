@@ -1,6 +1,6 @@
 <template>
   <div class="video-player">
-    <div class="row text-center">
+    <div class="row">
       <div class="columns small-12">
         <div class="video-player__wrapper">
           <video @timeupdate="setCurrentData"
@@ -14,14 +14,10 @@
                 {{ currentText }}
           </span>
         </div>
-        <pre class="pre">
-          {{ subtitles }}
-        </pre>
       </div>
     </div>
   </div>
 </template>
-
 <script>
   export default {
     name: 'VideoPlayer',
@@ -33,9 +29,9 @@
     },
     data() {
       return {
-        subtitles: [],
-        currentTime: null,
-        currentData: {},
+        subtitles: Array,
+        currentTime: Number,
+        currentData: Object,
         currentText: '',
       };
     },
@@ -51,10 +47,6 @@
         this.deleteSubtitlesLastElemIfEmpty();
         this.separateTimesFromTextInSubtitles();
         this.setSubtitlesIntoObjects();
-        console.log(this.subtitles);
-//        let start = this.subtitles[0]['0'].split(':').join('');
-//        start = Number(start);
-//        console.log(start === this.subtitles[0]['0'].split(':').join(''));
       },
       deleteSubtitlesLastElemIfEmpty() {
         const subtitlesLastElem = this.subtitles[this.subtitles.length - 1];
@@ -64,12 +56,16 @@
         this.subtitles = this.subtitles.map(line => line.split(/\.\d{3}\s/));
       },
       setSubtitlesIntoObjects() {
-        // eslint-disable-next-line
         this.subtitles = this.subtitles.map(subtitle => Object.assign({
           start: this.convertTimeToSeconds(subtitle[0]),
           end: this.convertTimeToSeconds(subtitle[1]),
           text: subtitle[2],
         }));
+      },
+      convertTimeToSeconds(timeString) {
+        const splitedTime = timeString.split(':');
+        // eslint-disable-next-line
+        return (Number(splitedTime[0]) * 360) + (Number(splitedTime[1]) * 60) + Number(splitedTime[2]);
       },
       setCurrentData() {
         this.currentTime = event.target.currentTime.toFixed(3);
@@ -92,20 +88,10 @@
         });
       },
       inBetween(x, { start, end }) {
-        console.log(`X: ${x}, START: ${start}, STOP: ${end}`);
         return x >= start && x <= end;
       },
       displayLine() {
         this.currentText = this.currentData ? this.currentData.text : '';
-      },
-      convertTimeToSeconds(timeString) {
-        console.log(timeString);
-        const splitedTime = timeString.split(':');
-        console.log(splitedTime);
-        // eslint-disable-next-line
-        console.log((Number(splitedTime[0]) * 360) + (Number(splitedTime[1]) * 60) + Number(splitedTime[2]));
-        // eslint-disable-next-line
-        return (Number(splitedTime[0]) * 360) + (Number(splitedTime[1]) * 60) + Number(splitedTime[2]);
       },
     },
   };
