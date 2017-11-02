@@ -1,6 +1,5 @@
 .video-player {
   display: flex;
-  position: relative;
   background: #7a419b;
   min-height: 100vh;
   background: linear-gradient(135deg, #7c1599 0%, #921099 48%, #7e4ae8 100%);
@@ -11,7 +10,7 @@
   }
   &__text {
     position: absolute;
-    bottom: 15%;
+    bottom: 17%;
     left: 50%;
     transform: translateX(-50%);
     font-size: 140%; /* fallback for 2vh */

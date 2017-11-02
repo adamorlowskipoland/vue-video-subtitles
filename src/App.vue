@@ -1,22 +1,18 @@
 <template>
   <div id="app">
     <div class="video-player">
-      <div class="row">
-        <div class="columns small-12">
-          <div class="video-player__wrapper">
-            <video @timeupdate="setCurrentTime"
-                   ref="video"
-                   class="video-player__video"
-                   controls>
-              <source :src="video.src"
-                      type="video/mp4"/>
-            </video>
-            <subtitles :subtitles="subtitles"
-                       :time="currentTime"
-                       class="text-center video-player__text">
-            </subtitles>
-          </div>
-        </div>
+      <div class="video-player__wrapper">
+        <video @timeupdate="setCurrentTime"
+               ref="video"
+               class="video-player__video"
+               controls>
+          <source :src="video.src"
+                  type="video/mp4"/>
+        </video>
+        <subtitles :subtitles="subtitles"
+                   :time="currentTime"
+                   class="video-player__text">
+        </subtitles>
       </div>
     </div>
   </div>
@@ -34,8 +30,8 @@
           src: 'http://r.dcs.redcdn.pl/http/o2/atendesoftware/portal/video/atendesoftware/atendesoftware2.mp4',
           subs: 'http://n-5-8.dcs.redcdn.pl/file/o2/atendesoftware/portal/video/atendesoftware/atendesoftware_2a.txt',
         },
-        subtitles: Array,
-        currentTime: Number,
+        subtitles: [],
+        currentTime: 0,
       };
     },
     created() {
@@ -59,7 +55,7 @@
         this.subtitles = this.subtitles.map(line => line.split(/\.\d{3}\s/));
       },
       setSubtitlesIntoObjects() {
-        this.subtitles = this.subtitles.map(subtitle => Object.assign({
+        this.subtitles = this.subtitles.map(subtitle => Object({
           start: this.convertTimeToSeconds(subtitle[0]),
           end: this.convertTimeToSeconds(subtitle[1]),
           text: subtitle[2],
@@ -68,10 +64,10 @@
       convertTimeToSeconds(timeString) {
         const splitedTime = timeString.split(':');
         // eslint-disable-next-line
-        return (Number(splitedTime[0]) * 360) + (Number(splitedTime[1]) * 60) + Number(splitedTime[2]);
+        return (parseInt(splitedTime[0], 10) * 360) + (parseInt(splitedTime[1], 10) * 60) + parseInt(splitedTime[2], 10);
       },
       setCurrentTime() {
-        this.currentTime = event.target.currentTime.toFixed(3);
+        this.currentTime = parseInt(event.target.currentTime.toFixed(3), 10);
       },
     },
   };

@@ -1,10 +1,6 @@
 <template>
   <div class="subtitles">
-    <div class="subtitles__wrapper">
-          <span class="text-center subtitles__text">
-                {{ currentText }}
-          </span>
-    </div>
+    {{ currentText }}
   </div>
 </template>
 <script>
@@ -17,30 +13,24 @@
         type: Number,
       },
     },
-    data() {
-      return {
-        givenSubtitles: Array,
-        currentData: Object,
-        currentText: 'wyświetla',
-      };
-    },
-    mounted() {
-      this.givenSubtitles = this.subtitles;
-      if (this.currentData) {
-        if (!this.inBetween(this.currentTime, this.currentData)) {
-          this.currentData = this.findCurrentData();
-          this.displayLine();
-        }
-      } else {
-        this.currentData = this.findCurrentData();
-        this.displayLine();
-      }
+    computed: {
+      givenSubtitles() {
+        return this.subtitles;
+      },
+      currentData() {
+        return this.findCurrentData();
+      },
+      givenTime() {
+        return this.time;
+      },
+      currentText() {
+        return this.currentData ? this.currentData.text : '';
+      },
     },
     methods: {
       findCurrentData() {
-        console.log(this.givenSubtitles);
         return this.givenSubtitles.find((line) => {
-          if (this.inBetween(this.time, line)) {
+          if (this.inBetween(this.givenTime, line)) {
             return line;
           }
           return false;
@@ -48,9 +38,6 @@
       },
       inBetween(time, { start, end }) {
         return time >= start && time <= end;
-      },
-      displayLine() {
-        this.currentText = this.currentData ? this.currentData.text : '';
       },
     },
   };
