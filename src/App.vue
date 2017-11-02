@@ -66,8 +66,8 @@
         // eslint-disable-next-line
         return (parseInt(splitedTime[0], 10) * 360) + (parseInt(splitedTime[1], 10) * 60) + parseInt(splitedTime[2], 10);
       },
-      setCurrentTime() {
-        this.currentTime = parseInt(event.target.currentTime.toFixed(3), 10);
+      setCurrentTime(event) {
+        this.currentTime = Number(event.target.currentTime.toFixed(3));
       },
     },
   };
