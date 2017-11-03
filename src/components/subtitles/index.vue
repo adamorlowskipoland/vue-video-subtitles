@@ -18,7 +18,7 @@
         return this.subtitles;
       },
       currentData() {
-        return this.findCurrentData();
+        return this.findCurrentData()[0];
       },
       givenTime() {
         return this.time;
@@ -29,7 +29,7 @@
     },
     methods: {
       findCurrentData() {
-        return this.givenSubtitles.find((line) => {
+        return this.givenSubtitles.filter((line) => {
           if (this.inBetween(this.givenTime, line)) {
             return line;
           }

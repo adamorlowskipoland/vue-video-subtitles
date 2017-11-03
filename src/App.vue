@@ -3,8 +3,6 @@
     <div class="video-player">
       <div class="video-player__wrapper">
         <video @timeupdate="setCurrentTime"
-               ref="video"
-               class="video-player__video"
                controls>
           <source :src="video.src"
                   type="video/mp4"/>
