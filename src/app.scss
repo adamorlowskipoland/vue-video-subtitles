@@ -1,22 +1,5 @@
-@import '../node_modules/foundation-sites/scss/util/util';
-@import '../node_modules/foundation-sites/scss/global';
 @import '../node_modules/normalize-scss/sass/normalize';
-@import 'assets/scss/main';
-
-$global-width: rem-calc(1200);
-$grid-column-count: 12;
-$grid-column-gutter: (
-  small: 20px,
-  medium: 30px,
-);
-@import '../node_modules/foundation-sites/scss/grid/grid';
-@import '../node_modules/foundation-sites/scss/components/flex';
-
-$global-flexbox: true;
-
-@include foundation-flex-grid;
-@include foundation-flex-classes;
-@include foundation-global-styles();
+@import 'assets/scss/video-player';
 
 *,
 *:before,
@@ -29,6 +12,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  margin: 0;
+  padding: 0;
 }
 
 button {
