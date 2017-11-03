@@ -1,5 +1,5 @@
 @import '../node_modules/normalize-scss/sass/normalize';
-@import 'assets/scss/video-player';
+@import 'assets/scss/player';
 
 *,
 *:before,
@@ -12,6 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  background-color: #010101;
   margin: 0;
   padding: 0;
 }

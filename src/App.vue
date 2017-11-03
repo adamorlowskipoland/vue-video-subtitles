@@ -1,25 +1,30 @@
 <template>
   <div id="app">
-    <div class="video-player">
-      <div class="video-player__wrapper">
-        <video @timeupdate="setCurrentTime"
-               controls>
+    <div class="player">
+      <div ref="player"
+           class="player__wrapper">
+        <video ref="video"
+               @timeupdate="setCurrentTime"
+               class="player__video" controls>
           <source :src="video.src"
                   type="video/mp4"/>
         </video>
+        <controls @openFullScreen="openFullScreen()"></controls>
         <subtitles :subtitles="subtitles"
                    :time="currentTime"
-                   class="video-player__text">
+                   class="player__text">
         </subtitles>
       </div>
     </div>
   </div>
 </template>
 <script>
+  import Controls from '@/components/controls';
   import Subtitles from '@/components/subtitles';
 
   export default {
     components: {
+      Controls,
       Subtitles,
     },
     data() {
@@ -39,6 +44,34 @@
         });
     },
     methods: {
+      openFullScreen() {
+        // eslint-disable-next-line
+        if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+          this.exitFullscreen();
+        } else {
+          this.launchIntoFullscreen(this.$refs.player);
+        }
+      },
+      launchIntoFullscreen(element) {
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) {
+          element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) {
+          element.msRequestFullscreen();
+        }
+      },
+      exitFullscreen() {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      },
       splitSubtitles(subtitles) {
         this.subtitles = subtitles.split('\n');
         this.deleteSubtitlesLastElemIfEmpty();
