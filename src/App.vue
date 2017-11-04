@@ -5,15 +5,16 @@
            class="player__wrapper">
         <video ref="video"
                @timeupdate="handleProgress"
-               @pause="updatePlayBtn()"
-               @play="updatePlayBtn()"
+               @pause="updatePlayBtn"
+               @play="updatePlayBtn"
                class="player__video">
           <source :src="video.src"
                   type="video/mp4"/>
         </video>
-        <controls @openFullScreen="openFullScreen()"
-                  @togglePlay="togglePlay()"
-                  @updateVolume="updateVolume()"
+        <controls @openFullScreen="openFullScreen"
+                  @togglePlay="togglePlay"
+                  @updateVolume="updateVolume"
+                  @scrubTime="scrubTime"
                   :playIcon="playIcon"
                   class="player__controls">
           <div ref="progressBar"
@@ -67,16 +68,23 @@
         this.$refs.video[method]();
       },
       updatePlayBtn() {
-        this.playIcon = this.$refs.video.paused ? '►' : '||';
+        this.playIcon = this.$refs.video.paused ? '►' : 'PAUSE';
       },
       updateVolume() {
         this.$refs.video.volume = event.target.value;
       },
       handleProgress() {
         const percent = (this.$refs.video.currentTime / this.$refs.video.duration) * 100;
-        console.log(this.$refs.video.percent);
         this.$refs.progressBar.style.flexBasis = `${percent}%`;
         this.setCurrentTime(event);
+      },
+      scrubTime(controlsWidth) {
+        // eslint-disable-next-line
+        const scrubTime = (event.offsetX / controlsWidth) * this.$refs.video.duration;
+        console.log(event.offsetX);
+        console.log(controlsWidth);
+        console.log(this.$refs.video.duration);
+        this.$refs.video.currentTime = scrubTime;
       },
       launchIntoFullscreen(element) {
         if (element.requestFullscreen) {

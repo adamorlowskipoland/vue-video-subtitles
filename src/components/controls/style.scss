@@ -1,10 +1,24 @@
 .controls{
+  & > span {
+    color: tomato;
+    flex: 4;
+    text-align: right;
+    padding-right: 5px;
+    font-size: 14px;
+  }
   & > button {
     flex: 1;
     color: tomato;
+    background-color: transparent;
+    padding: 0;
+    outline: none;
+    border: none;
+    &:focus {
+      outline: none;
+    }
   }
   & > input {
-    flex: 20;
+    flex: 2;
   }
   &__progress {
     color: tomato;
