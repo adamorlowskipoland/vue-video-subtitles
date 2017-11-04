@@ -4,12 +4,21 @@
       <div ref="player"
            class="player__wrapper">
         <video ref="video"
-               @timeupdate="setCurrentTime"
-               class="player__video" controls>
+               @timeupdate="handleProgress"
+               @pause="updatePlayBtn()"
+               @play="updatePlayBtn()"
+               class="player__video">
           <source :src="video.src"
                   type="video/mp4"/>
         </video>
-        <controls @openFullScreen="openFullScreen()"></controls>
+        <controls @openFullScreen="openFullScreen()"
+                  @togglePlay="togglePlay()"
+                  @updateVolume="updateVolume()"
+                  :playIcon="playIcon"
+                  class="player__controls">
+          <div ref="progressBar"
+               class="controls__progress--filled"></div>
+        </controls>
         <subtitles :subtitles="subtitles"
                    :time="currentTime"
                    class="player__text">
@@ -35,6 +44,7 @@
         },
         subtitles: [],
         currentTime: 0,
+        playIcon: '►',
       };
     },
     created() {
@@ -51,6 +61,22 @@
         } else {
           this.launchIntoFullscreen(this.$refs.player);
         }
+      },
+      togglePlay() {
+        const method = this.$refs.video.paused ? 'play' : 'pause';
+        this.$refs.video[method]();
+      },
+      updatePlayBtn() {
+        this.playIcon = this.$refs.video.paused ? '►' : '||';
+      },
+      updateVolume() {
+        this.$refs.video.volume = event.target.value;
+      },
+      handleProgress() {
+        const percent = (this.$refs.video.currentTime / this.$refs.video.duration) * 100;
+        console.log(this.$refs.video.percent);
+        this.$refs.progressBar.style.flexBasis = `${percent}%`;
+        this.setCurrentTime(event);
       },
       launchIntoFullscreen(element) {
         if (element.requestFullscreen) {

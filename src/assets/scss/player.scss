@@ -8,10 +8,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    overflow-y: hidden;
     &:-webkit-full-screen {
       video {
         width: 100vw;
         height: 100vh;
+      }
+    }
+    &:hover {
+      .player__controls {
+        transform: translateY(0);
       }
     }
   }
@@ -35,9 +41,15 @@
     background-color: rgba(0, 0, 0, 0.75);
   }
   &__controls {
+    display: flex;
     position: absolute;
-    bottom: 5%;
+    bottom: 0;
     left: 0;
+    width: 100%;
+    //transform: translateY(100%) translateY(-5px);
+    transition: all .3s;
+    flex-wrap: wrap;
+    background:rgba(0,0,0,0.1);
     z-index: 2147483647;
   }
 }
