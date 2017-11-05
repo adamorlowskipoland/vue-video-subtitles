@@ -79,7 +79,6 @@
         this.setCurrentTime(event);
       },
       scrubTime(clickedPlace) {
-        // eslint-disable-next-line
         const scrubTime = clickedPlace * this.$refs.video.duration;
         this.$refs.video.currentTime = scrubTime;
       },
