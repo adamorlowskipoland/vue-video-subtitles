@@ -9,6 +9,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     overflow-y: hidden;
+    border:5px solid rgba(0,0,0,0.2);
+    box-shadow:0 0 20px rgba(0,0,0,0.2);
     &:-webkit-full-screen {
       video {
         width: 100vw;
