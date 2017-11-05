@@ -23,6 +23,20 @@
         }
       }
     }
+    &:-moz-full-screen {
+      video {
+        width: 100vw;
+        height: 100vh;
+      }
+      &:hover {
+        .player__controls {
+          transform: translateY(100%) translateY(-7px);
+          &:hover {
+            transform: translateY(0);
+          }
+        }
+      }
+    }
     &:hover {
       .player__controls {
         transform: translateY(0);

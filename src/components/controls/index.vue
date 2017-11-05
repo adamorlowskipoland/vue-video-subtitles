@@ -8,7 +8,7 @@
            class="controls__progress">
         <slot></slot>
       </div>
-      <button @click="togglePlay()"
+      <button @click="togglePlay"
               class="player__button toggle">
         {{ playIcon }}
       </button>
@@ -18,9 +18,9 @@
              min="0" max="1"
              step="0.05"
              value="1"
-             @change="updateVolume()"
-             @mousemove="updateVolume()">
-      <button @click="openFullScreen()">[ Full ]</button>
+             @change="updateVolume"
+             @mousemove="updateVolume">
+      <button @click="openFullScreen">[ Full ]</button>
     </div>
 </template>
 <script>
@@ -42,17 +42,18 @@
       togglePlay() {
         this.$emit('togglePlay');
       },
-      updateVolume() {
-        this.$emit('updateVolume');
+      updateVolume(event) {
+        const val = event.target.value;
+        this.$emit('updateVolume', val);
       },
-      scrubTime() {
-        const controlsWidth = this.$refs.controls.offsetWidth;
+      scrubTime(event) {
+        const clickedPlace = (event.offsetX / this.$refs.controls.offsetWidth);
         if (event.type === 'mousemove') {
           if (this.mouseDown) {
-            this.$emit('scrubTime', controlsWidth);
+            this.$emit('scrubTime', clickedPlace);
           }
         } else {
-          this.$emit('scrubTime', controlsWidth);
+          this.$emit('scrubTime', clickedPlace);
         }
       },
       toggleMouseDown() {

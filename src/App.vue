@@ -68,22 +68,19 @@
         this.$refs.video[method]();
       },
       updatePlayBtn() {
-        this.playIcon = this.$refs.video.paused ? '►' : 'PAUSE';
+        this.playIcon = this.$refs.video.paused ? '►' : '||';
       },
-      updateVolume() {
-        this.$refs.video.volume = event.target.value;
+      updateVolume(val) {
+        this.$refs.video.volume = val;
       },
-      handleProgress() {
+      handleProgress(event) {
         const percent = (this.$refs.video.currentTime / this.$refs.video.duration) * 100;
         this.$refs.progressBar.style.flexBasis = `${percent}%`;
         this.setCurrentTime(event);
       },
-      scrubTime(controlsWidth) {
+      scrubTime(clickedPlace) {
         // eslint-disable-next-line
-        const scrubTime = (event.offsetX / controlsWidth) * this.$refs.video.duration;
-        console.log(event.offsetX);
-        console.log(controlsWidth);
-        console.log(this.$refs.video.duration);
+        const scrubTime = clickedPlace * this.$refs.video.duration;
         this.$refs.video.currentTime = scrubTime;
       },
       launchIntoFullscreen(element) {
