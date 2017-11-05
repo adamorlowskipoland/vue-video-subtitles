@@ -55,14 +55,6 @@
         });
     },
     methods: {
-      openFullScreen() {
-        // eslint-disable-next-line
-        if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
-          this.exitFullscreen();
-        } else {
-          this.launchIntoFullscreen(this.$refs.player);
-        }
-      },
       togglePlay() {
         const method = this.$refs.video.paused ? 'play' : 'pause';
         this.$refs.video[method]();
@@ -78,9 +70,19 @@
         this.$refs.progressBar.style.flexBasis = `${percent}%`;
         this.setCurrentTime(event);
       },
+      setCurrentTime(event) {
+        this.currentTime = Number(event.target.currentTime.toFixed(3));
+      },
       scrubTime(clickedPlace) {
-        const scrubTime = clickedPlace * this.$refs.video.duration;
-        this.$refs.video.currentTime = scrubTime;
+        this.$refs.video.currentTime = clickedPlace * this.$refs.video.duration;
+      },
+      openFullScreen() {
+        // eslint-disable-next-line
+        if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+          this.exitFullscreen();
+        } else {
+          this.launchIntoFullscreen(this.$refs.player);
+        }
       },
       launchIntoFullscreen(element) {
         if (element.requestFullscreen) {
@@ -126,9 +128,6 @@
         const splitedTime = timeString.split(':');
         // eslint-disable-next-line
         return (parseInt(splitedTime[0], 10) * 360) + (parseInt(splitedTime[1], 10) * 60) + parseInt(splitedTime[2], 10);
-      },
-      setCurrentTime(event) {
-        this.currentTime = Number(event.target.currentTime.toFixed(3));
       },
     },
   };
