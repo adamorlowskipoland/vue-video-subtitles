@@ -117,7 +117,7 @@
         this.subtitles = this.subtitles.map(line => line.split(/\.\d{3}\s/));
       },
       setSubtitlesIntoObjects() {
-        this.subtitles = this.subtitles.map(subtitle => Object({
+        this.subtitles = this.subtitles.map(subtitle => ({
           start: this.convertTimeToSeconds(subtitle[0]),
           end: this.convertTimeToSeconds(subtitle[1]),
           text: subtitle[2],
