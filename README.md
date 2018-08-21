@@ -15,4 +15,6 @@ yarn dev
 yarn build
 
 ```
-App is deployed thanks to [netlify.com](https://admiring-nightingale-d3f860.netlify.com/)
+App is deployed [here](https://admiring-nightingale-d3f860.netlify.com/)
+
+Thanks to [netlify.com](https://netlify.com/)
