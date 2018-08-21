@@ -24,8 +24,6 @@
     </div>
 </template>
 <script>
-  /* eslint-disable semi */
-
   export default {
     props: {
       playIcon: String,

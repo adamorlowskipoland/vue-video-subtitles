@@ -33,6 +33,7 @@
   </div>
 </template>
 <script>
+  import axios from 'axios';
   import Controls from '@/components/controls';
   import Subtitles from '@/components/subtitles';
   import Snackbar from '@/components/snackbar';
@@ -56,16 +57,17 @@
         msg: '',
       };
     },
-    created() {
-      this.$http.get(this.video.subs)
-        .then((data) => {
-          this.splitSubtitles(data.bodyText);
+    mounted() {
+      axios.get(this.video.subs)
+        .then(({ data }) => {
+          this.splitSubtitles(data);
         })
-        .catch(() => {
+        .catch((error) => {
           // eslint-disable-next-line
-          console.warn("There was a problem with getting subtitles");
+          console.warn('There was a problem with getting subtitles');
           this.showSnackbar = true;
           this.msg = "Couldn't download subtitles";
+          throw new Error(error);
         });
     },
     methods: {
