@@ -26,32 +26,46 @@
         </subtitles>
       </div>
     </div>
+    <Snackbar
+      :show="showSnackbar"
+      :msg="this.msg"
+      @closeSnackbar="closeSnackbar()"/>
   </div>
 </template>
 <script>
   import Controls from '@/components/controls';
   import Subtitles from '@/components/subtitles';
+  import Snackbar from '@/components/snackbar';
 
   export default {
     components: {
       Controls,
       Subtitles,
+      Snackbar,
     },
     data() {
       return {
         video: {
-          src: 'http://r.dcs.redcdn.pl/http/o2/atendesoftware/portal/video/atendesoftware/atendesoftware2.mp4',
-          subs: 'http://n-5-8.dcs.redcdn.pl/file/o2/atendesoftware/portal/video/atendesoftware/atendesoftware_2a.txt',
+          src: 'https://n-1-16.dcs.redcdn.pl/file/o2/atendesoftware/portal/video/atendesoftware/atendesoftware2.mp4',
+          subs: 'https://n-5-8.dcs.redcdn.pl/file/o2/atendesoftware/portal/video/atendesoftware/atendesoftware_2a.txt',
         },
         subtitles: [],
         currentTime: 0,
         playIcon: '►',
+        showSnackbar: false,
+        msg: '',
       };
     },
     created() {
       this.$http.get(this.video.subs)
         .then((data) => {
           this.splitSubtitles(data.bodyText);
+        })
+        .catch(() => {
+          // eslint-disable-next-line
+          console.warn("There was a problem with getting subtitles");
+          this.showSnackbar = true;
+          this.msg = "Couldn't download subtitles";
         });
     },
     methods: {
@@ -128,6 +142,9 @@
         const splitedTime = timeString.split(':');
         // eslint-disable-next-line
         return (parseInt(splitedTime[0], 10) * 360) + (parseInt(splitedTime[1], 10) * 60) + parseInt(splitedTime[2], 10);
+      },
+      closeSnackbar() {
+        this.showSnackbar = false;
       },
     },
   };
